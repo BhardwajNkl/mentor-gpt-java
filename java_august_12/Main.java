@@ -63,10 +63,13 @@ public class Main{
         Student student8 = new Student(8, "Naveen",25,58);
         Student student9 = new Student(9, "Madan",26,72);
         Student student10 = new Student(10, "Tarun",23,54);
+        Student student11 = new Student(11, "Nikhil",24,76);
+        Student student12 = new Student(12, "Rajan",23,54);
+
 
 
         List<Student> students = new ArrayList<>();
-        students.addAll(Arrays.asList(student1, student2, student3, student4, student5, student6, student7, student8, student9, student10));
+        students.addAll(Arrays.asList(student1, student2, student3, student4, student5, student6, student7, student8, student9, student10, student11, student12));
     
         Solution solution = new Solution();
 
@@ -77,6 +80,12 @@ public class Main{
         // for(Entry<String, Integer> entry: nameGradeMap.entrySet()){
         //     System.out.println(entry.getKey()+", "+entry.getValue());
         // } 
+
+        // Map<String, List<Student>> result = solution.groupStudentsInGradeGroup(students);
+        // for(Entry<String, List<Student>> entry: result.entrySet()){
+        //     System.out.println(entry.getKey());
+        //     entry.getValue().forEach(System.out::println);
+        // }
 
         // Student kThHighestGradeStudent = solution.findKthHighestGradeStudent(students,2);
         // System.out.println(kThHighestGradeStudent);
@@ -93,8 +102,17 @@ public class Main{
         // String lowestGradeStudentName = solution.studentNameWithLowestGrade(students);
         // System.out.println(lowestGradeStudentName);
 
+        // List<List<Student>> superList = new ArrayList<>();
+        // superList.add(students);
+        // List<Student> flattenedList = solution.flattenList(superList);
+        // flattenedList.forEach(System.out::println);
+        
+
         // String studentNameCsv = solution.convertStudentListToNameCSV(students);
         // System.out.println(studentNameCsv);
+
+        List<Student> uniqeStudents = solution.removeDuplicateBasedOnName(students);
+        uniqeStudents.forEach(System.out::println);
     }
 }
 
@@ -110,7 +128,7 @@ class Solution{
 
     // count students in each grade group: 0-5-, 51-60,61-70,71-80,81-90,91-100: UNSOLVED
     // SEEN SOLUTION
-    Map<String, List<Student>> countStudentsInEachGradeGroup(List<Student> students){
+    Map<String, List<Student>> groupStudentsInGradeGroup(List<Student> students){
         return students.stream()
                        .collect(Collectors.groupingBy(student -> {
                            int grade = student.getGrade();
@@ -149,6 +167,10 @@ class Solution{
 
 
     // Flatten a List of Student Lists: HAVE MULTIPLE STUDENT LIST OR JUST USE THE SINGLE ONE INSIDE A LIST
+    List<Student> flattenList(List<List<Student>> studentListList){
+        return studentListList.stream()
+            .flatMap(List::stream).toList();
+    }
 
 
     String convertStudentListToNameCSV(List<Student> students){
